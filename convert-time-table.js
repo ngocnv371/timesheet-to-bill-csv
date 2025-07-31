@@ -28,9 +28,11 @@ async function transposeData(data) {
 
     // Get all keys from the first row (which are the headers)
     const allHeaders = Object.keys(data[0]);
+    console.log(`Found headers: ${allHeaders.join(', ')}`);
 
     // Identify the 'Ticket' column header
-    const ticketHeader = 'Ticket'; // Assuming 'Ticket' is the exact header name
+    const ticketHeader =  allHeaders[0]; // Assuming 'Ticket' is the first column header
+    console.log(`Identified 'Ticket' header as: ${ticketHeader}`);
 
     // Filter out date headers. Dates are assumed to be any header that is NOT 'Ticket'.
     const dateHeaders = allHeaders.filter(header => header !== ticketHeader);
@@ -38,6 +40,7 @@ async function transposeData(data) {
     // Iterate over each row (ticket entry) in the input data
     for (const row of data) {
         const ticketName = row[ticketHeader];
+        console.log(`Processing ticket: ${ticketName}`);
 
         // Iterate over each date column for the current ticket
         for (const date of dateHeaders) {
